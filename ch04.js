@@ -31,6 +31,10 @@ wordsInSentences(sentences)
 //   }, xs);
 // };
 
+var filterQs = R.filter(R.test(/q/i));
+var words = ['hola', 'quokka', 'quit', 'cat'];
+filterQs(words);
+
 
 // Exercise 3
 //==============
