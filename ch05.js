@@ -88,3 +88,42 @@ var _sanitize = R.compose(_underscore, R.toLower);
 var _sanitizeName = R.compose(_sanitize, R.prop('name'));
 var sanitizeNames = R.map(_sanitizeName);
 sanitizeNames(CARS)
+
+
+
+// Bonus 1:
+// ============
+// Refactor availablePrices with compose.
+
+// var availablePrices = function(cars) {
+//   var available_cars = _.filter(_.prop('in_stock'), cars);
+//   return available_cars.map(function(x) {
+//     return accounting.formatMoney(x.dollar_value);
+//   }).join(', ');
+// };
+
+var availablePrices = R.compose(
+  R.map(accounting.formatMoney),
+  R.map(R.prop('x.dollar_value')),
+  R.filter(R.prop('in_stock'))
+);
+
+
+
+// Bonus 2:
+// ============
+// Refactor to pointfree. Hint: you can use _.flip().
+
+// var fastestCar = function(cars) {
+//   var sorted = _.sortBy(function(car) {
+//     return car.horsepower;
+//   }, cars);
+//   var fastest = _.last(sorted);
+//   return fastest.name + ' is the fastest';
+// };
+
+var fastestCar = R.compose(
+  R.last,
+  R.sortBy(R.prop('horsepower'))
+);
+fastestCar(CARS);
